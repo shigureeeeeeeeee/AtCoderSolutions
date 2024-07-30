@@ -1,4 +1,4 @@
-AtCoder Solutions
+## AtCoder Solutions
 This repository is for storing and sharing solutions to problems solved in AtCoder contests.
 Overview
 
@@ -6,7 +6,7 @@ Purpose: Improve problem-solving skills for AtCoder and record solutions
 Target Contests: ABC (AtCoder Beginner Contest), ARC (AtCoder Regular Contest), AGC (AtCoder Grand Contest)
 Programming Language: Python 3
 
-Contributing
+# Contributing
 We welcome more efficient solutions or solutions to unsolved problems. When submitting a pull request, please ensure:
 
 The code is properly commented
