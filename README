@@ -1,1 +1,14 @@
-This is a repository for learning algorithms and their implementation methods using AtCoder Beginner Contest.
+#AtCoder Solutions
+This repository is for storing and sharing solutions to problems solved in AtCoder contests.
+Overview
+
+Purpose: Improve problem-solving skills for AtCoder and record solutions
+Target Contests: ABC (AtCoder Beginner Contest), ARC (AtCoder Regular Contest), AGC (AtCoder Grand Contest)
+Programming Language: Python 3
+
+Contributing
+We welcome more efficient solutions or solutions to unsolved problems. When submitting a pull request, please ensure:
+
+The code is properly commented
+The PyLint score is 8.0 or higher
+Execution time and memory usage are clearly stated
