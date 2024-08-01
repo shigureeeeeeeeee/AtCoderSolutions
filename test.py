@@ -1,10 +1,12 @@
-def check_adjacent_elements(lst):
-    for i in range(len(lst) - 1):
-        if lst[i] == lst[i + 1]:
-            print(f"要素 {i} と {i+1} は一致しています: {lst[i]}")
-        else:
-            print(f"要素 {i} と {i+1} は一致していません: {lst[i]} != {lst[i+1]}")
+import re
+
+def clean_list_elements(input_list):
+    pattern = r'[,\[\]]'
+    return [re.sub(pattern, '', str(item)) for item in input_list]
 
 # 使用例
-my_list = [1, 2, 2, 3, 4, 4, 5]
-check_adjacent_elements(my_list)
+original_list = ["[Hello], World", "Python, [Programming]", "[OpenAI], GPT", 123, ["nested", "list"]]
+cleaned_list = clean_list_elements(original_list)
+
+print("Original list:", original_list)
+print("Cleaned list:", cleaned_list)
