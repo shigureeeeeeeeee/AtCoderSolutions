@@ -1,12 +1,20 @@
-import re
+N = int(input())
+values = list(map(int, input()))
 
-def clean_list_elements(input_list):
-    pattern = r'[,\[\]]'
-    return [re.sub(pattern, '', str(item)) for item in input_list]
+total_sum = sum(values)
+cumulative_sum = [0] * (2 * N)
+for i in range(2 * N):
+    cumulative_sum[i] = cumulative_sum[i - 1] + values[i % N]
 
-# 使用例
-original_list = ["[Hello], World", "Python, [Programming]", "[OpenAI], GPT", 123, ["nested", "list"]]
-cleaned_list = clean_list_elements(original_list)
+min_fairness = float('inf')
+for i in range(N):
+    for j in range(i + 1, i + N):
+        a = cumulative_sum[j] - cumulative_sum[i]
+        for k in range(j + 1, i + N):
+            b = cumulative_sum[k] - cumulative_sum[j]
+            c = total_sum - a - b
+            fairness = max(a, b, c) - min(a, b, c)
+            min_fairness = min(min_fairness, fairness)
 
-print("Original list:", original_list)
-print("Cleaned list:", cleaned_list)
+print(min_fairness)
+
