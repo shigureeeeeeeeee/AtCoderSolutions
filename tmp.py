@@ -1,27 +1,59 @@
-def find_routes(N, M, rainfall):
-    def dfs(x, y, path):
-        if x == N-1 and y == N-1:
-            routes.append(path[-1])
-            return
-        
-        directions = [(0, 1), (1, 0)]  # 右と下のみ
-        for dx, dy in directions:
-            nx, ny = x + dx, y + dy
-            if 0 <= nx < N and 0 <= ny < N and rainfall[nx][ny] < M:
-                dfs(nx, ny, path + [nx * N + ny + 1])
+def is_erasable(board, x, y):
+    number = board[x][y]
+    for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < len(board) and 0 <= ny < 5 and board[nx][ny] != number:
+            return False
+    return True
 
-    routes = []
-    if rainfall[0][0] < M:  # 開始地点のチェック
-        dfs(0, 0, [1])
+def dfs(board, x, y, number, to_erase):
+    if x < 0 or x >= len(board) or y < 0 or y >= 5 or board[x][y] != number:
+        return
+    to_erase.add((x, y))
+    for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+        nx, ny = x + dx, y + dy
+        if (nx, ny) not in to_erase:
+            dfs(board, nx, ny, number, to_erase)
+
+def erase_blocks(board):
+    to_erase = set()
+    for i in range(len(board)):
+        for j in range(5):
+            if board[i][j] != '.' and is_erasable(board, i, j):
+                group = set()
+                dfs(board, i, j, board[i][j], group)
+                to_erase.update(group)
     
-    return sorted(routes) if routes else ["wait"]
+    if not to_erase:
+        return False
+    
+    for i, j in to_erase:
+        board[i][j] = '.'
+    return True
 
-# 入力を受け取る
-N, M = map(int, input().split())
-rainfall = [list(map(int, input().split())) for _ in range(N)]
+def drop_blocks(board):
+    for j in range(5):
+        write_pos = len(board) - 1
+        for i in range(len(board) - 1, -1, -1):
+            if board[i][j] != '.':
+                board[write_pos][j] = board[i][j]
+                if write_pos != i:
+                    board[i][j] = '.'
+                write_pos -= 1
 
-# ルートを探索
-result = find_routes(N, M, rainfall)
+def solve_puzzle(board):
+    while True:
+        if not erase_blocks(board):
+            break
+        drop_blocks(board)
 
-# 結果を出力
-print(*result)
+# 入力の読み取り
+H = int(input())
+board = [list(input().strip()) for _ in range(H)]
+
+# パズルの解決
+solve_puzzle(board)
+
+# 結果の出力
+for row in board:
+    print(''.join(row))
