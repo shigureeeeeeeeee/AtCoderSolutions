@@ -1,14 +1,18 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>   // std::cout, std::endl;
+#include <algorithm>  // std::sort, std::unique
+#include <vector>     // std::vector
 
-int digit_sum(string n){
-    int sum = 0;
-    for(auto itr=n.begin();itr < n.end();itr++){
-        sum += *itr - '0'; // *itrはchar型のため、数値に直すには'0'で引き算する。
-    }
-    return sum;
+void printVec(std::vector<int> &vec) {
+  std::cout << "";
+  for (auto it = vec.begin(); it != vec.end(); ++it) {
+    std::cout << *it << " ";
+  }
+  std::cout << std::endl;
 }
-int main(){
-    string n= "12345";
-    cout << digit_sum(n) << endl;
+
+int main() {
+  std::vector<int> vec = {10,40,40,20,20,30,20,20,40};
+  std::sort(vec.begin(), vec.end());
+  vec.erase(std::unique(vec.begin(), vec.end()), vec.end());
+  printVec(vec);    // 10 20 30 40
 }
